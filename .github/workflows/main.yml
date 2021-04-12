@@ -51,5 +51,5 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         push: true
-        tags: mindock/infra-subway
+        tags: mindock96/infra-subway
         context: .
