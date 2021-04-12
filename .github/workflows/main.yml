@@ -16,8 +16,8 @@ jobs:
     # 참고
     # https://github.com/actions/checkout#checkout-multiple-repos-private
     # https://github.com/marketplace/actions/checkout-submodules
-    - name: Checkout Submodule
-      uses: action/checkout@v2
+    - name: Checkout with Submodule
+      uses: actions/checkout@v2
       with:
         token: ${{ secrets.GITHUB_PAT }}
         submodules: recursive
