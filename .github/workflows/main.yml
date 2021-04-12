@@ -19,7 +19,7 @@ jobs:
     - name: Checkout with Submodule
       uses: actions/checkout@v2
       with:
-        token: ${{ secrets.GITHUB_PAT }}
+        token: ${{ secrets.MINDOCK_PAT }}
         submodules: recursive
     
     # 참고
