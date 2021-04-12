@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build & docker hub upload:
+  build_and_docker_hub_upload:
     runs-on: ubuntu-latest
 
     steps:
