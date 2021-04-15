@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <encoder>
+        <pattern>${LOG_PATTERN}</pattern>
+    </encoder>
+    <file>${LOG_PATH}/application-logger.log</file>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+        <fileNamePattern>${LOG_PATH}/application-log-%d{yyyy-MM-dd}.zip</fileNamePattern>
+        <!-- 30일간 보관 -->
+        <maxHistory>30</maxHistory>
+    </rollingPolicy>
+</appender>

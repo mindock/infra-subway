@@ -4,18 +4,12 @@
 
     <springProperty scope="context" name="LOG_LEVEL" source="logging.level.root"/>
 
-    <!-- 로그 파일 저장 위치 -->
-    <property name="LOG_PATH" value="/var/log" />
-    <!-- 패턴 -->
-    <property name="LOG_PATTERN" value="[%d{yyyy-MM-dd HH:mm:ss.SSS}] [%thread] %-5level [%C.%M:%line] - %msg%n" />
-
     <!-- production 환경이 아닐 때만 활성화 -->
     <springProfile name="!prod">
-        <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
-            <encoder>
-                <pattern>${LOG_PATTERN}</pattern>
-            </encoder>
-        </appender>
+        <!-- 패턴 -->
+        <property name="LOG_PATTERN" value="[%d{yyyy-MM-dd HH:mm:ss.SSS}] %magenta([%thread]) %highlight(%-5level) [%C.%M:%line] - %msg%n" />
+        <!-- appender -->
+        <include resource="console-appender.xml" />
 
         <root level="${LOG_LEVEL}">
             <appender-ref ref="CONSOLE" />
@@ -24,33 +18,16 @@
 
     <!-- production 환경일때만 활성화 -->
     <springProfile name ="prod">
-        <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-            <encoder>
-                <pattern>${LOG_PATTERN}</pattern>
-            </encoder>
-            <file>${LOG_PATH}/application-logger.log</file>
-            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-                <fileNamePattern>${LOG_PATH}/application-log-%d{yyyy-MM-dd}.zip</fileNamePattern>
-                <!-- 30일간 보관 -->
-                <maxHistory>30</maxHistory>
-            </rollingPolicy>
-        </appender>
+        <!-- 로그 파일 저장 위치 -->
+        <property name="LOG_PATH" value="/var/log" />
+        <!-- 패턴 -->
+        <property name="LOG_PATTERN" value="[%d{yyyy-MM-dd HH:mm:ss.SSS}] [%thread] %-5level [%C.%M:%line] - %msg%n" />
 
-        <appender name="ERROR_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-            <filter class="ch.qos.logback.classic.filter.LevelFilter">
-                <level>error</level>
-                <onMatch>ACCEPT</onMatch>
-                <onMismatch>DENY</onMismatch>
-            </filter>
-            <file>${LOG_PATH}/application-error.log</file>
-            <encoder>
-                <pattern>${LOG_PATTERN}</pattern>
-            </encoder>
-            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-                <fileNamePattern>${LOG_PATH}/application-error-%d{yyyy-MM-dd}.zip</fileNamePattern>
-                <maxHistory>30</maxHistory>
-            </rollingPolicy>
-        </appender>
+        <!--spring boot의 기본 logback base.xml은 그대로 가져간다.-->
+        <include resource="org/springframework/boot/logging/logback/base.xml" />
+        <!-- appender -->
+        <include resource="file-appender.xml" />
+        <include resource="error-file-appender.xml" />
 
         <root level="info">
             <appender-ref ref="FILE" />
