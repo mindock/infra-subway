@@ -19,7 +19,7 @@
     <!-- production 환경일때만 활성화 -->
     <springProfile name ="prod">
         <!-- 로그 파일 저장 위치 -->
-        <property name="LOG_PATH" value="/var/log" />
+        <property name="LOG_PATH" value="/var/log/subway" />
         <!-- 패턴 -->
         <property name="LOG_PATTERN" value="[%d{yyyy-MM-dd HH:mm:ss.SSS}] [%thread] %-5level [%C.%M:%line] - %msg%n" />
 

@@ -4,6 +4,8 @@ import nextstep.subway.member.domain.Member;
 import nextstep.subway.member.domain.MemberRepository;
 import nextstep.subway.member.dto.MemberRequest;
 import nextstep.subway.member.dto.MemberResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class MemberService {
     private MemberRepository memberRepository;
+    private final static Logger logger = LoggerFactory.getLogger(MemberService.class);
 
     public MemberService(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
@@ -18,6 +21,7 @@ public class MemberService {
 
     public MemberResponse createMember(MemberRequest request) {
         Member member = memberRepository.save(request.toMember());
+        logger.info("회원가입 성공: {}", member.getId());
         return MemberResponse.of(member);
     }
 
